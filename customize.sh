@@ -18,7 +18,7 @@ brand=$(getprop ro.product.brand)
 manufacturer=$(getprop ro.product.manufacturer)
 name=$(getprop ro.product.name)
 model=$(getprop ro.product.model)
-
+echo "当前机型：$brand $manufacturer $name $model"
 if echo "$brand $manufacturer $name $model" | grep -qi "oneplus"; then
     ui_print "检测到机型为OnePlus，将创建 post_fs_data.sh 自动关闭 oplus_secure_guard_new 内核模块"
 
