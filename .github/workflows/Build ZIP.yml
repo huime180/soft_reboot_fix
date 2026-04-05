@@ -45,7 +45,7 @@ jobs:
 
       - name: Copy zip with versioned name
         run: |
-          cp dist/module.zip dist/soft_reboot_fix_${{ steps.get_version.outputs.version }}.zip
+          cp dist/module.zip dist/soft_reboot_fix-${{ steps.get_version.outputs.version }}.zip
 
       - name: Update update.json
         run: |
@@ -53,7 +53,7 @@ jobs:
           {
             "version": "${{ steps.get_version.outputs.version }}",
             "versionCode": "${{ steps.get_version.outputs.versionCode }}",
-            "zipUrl": "https://github.com/${{ github.repository }}/releases/download/${{ steps.get_version.outputs.version }}/soft_reboot_fix_${{ steps.get_version.outputs.version }}.zip",
+            "zipUrl": "https://github.com/${{ github.repository }}/releases/download/${{ steps.get_version.outputs.version }}/soft_reboot_fix-${{ steps.get_version.outputs.version }}.zip",
             "changelog": "https://raw.githubusercontent.com/huime180/soft_reboot_fix/main/CHANGELOG.md"
           }
           EOF
@@ -72,12 +72,12 @@ jobs:
           tag_name: ${{ steps.get_version.outputs.version }}
           name: Release ${{ steps.get_version.outputs.version }}
           body_path: CHANGELOG.md
-          files: dist/soft_reboot_fix_${{ steps.get_version.outputs.version }}.zip
+          files: dist/soft_reboot_fix-${{ steps.get_version.outputs.version }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: soft_reboot_fix_${{ steps.get_version.outputs.version }}.zip
+          name: soft_reboot_fix-${{ steps.get_version.outputs.version }}.zip
           path: dist/module.zip
