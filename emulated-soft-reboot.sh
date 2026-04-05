@@ -1,6 +1,6 @@
 #!/system/bin/sh
 
-CONF="/data/adb/modules/ksu_soft_reroot_fix/config.ini"
+CONF="/data/adb/modules/soft_reboot_fix/config.ini"
 
 # 退出 zygiskd（如果存在）
 [ -f /data/adb/modules/zygisksu/bin/zygiskd ] && \
