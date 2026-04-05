@@ -1,0 +1,83 @@
+name: Build ZIP & Update update.json
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - module.prop
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Read version from module.prop
+        id: get_version
+        run: |
+          VERSION=$(grep '^version=' module.prop | cut -d'=' -f2)
+          VERSION_CODE=$(grep '^versionCode=' module.prop | cut -d'=' -f2)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "versionCode=$VERSION_CODE" >> $GITHUB_OUTPUT
+          echo "Detected version: $VERSION ($VERSION_CODE)"
+
+      - name: Create output directory
+        run: mkdir -p dist
+
+      - name: Zip repository root (exclude files)
+        run: |
+          cd "$GITHUB_WORKSPACE"
+          zip -r dist/module.zip . \
+            -x "update.json" \
+            -x "README.md" \
+            -x "CHANGELOG.md" \
+            -x ".github/*" \
+            -x ".git/*" \
+            -x "dist/*"
+
+      - name: Copy zip with versioned name
+        run: |
+          cp dist/module.zip dist/ksu_soft_reroot_fix_${{ steps.get_version.outputs.version }}.zip
+
+      - name: Update update.json
+        run: |
+          cat > update.json <<EOF
+          {
+            "version": "${{ steps.get_version.outputs.version }}",
+            "versionCode": "${{ steps.get_version.outputs.versionCode }}",
+            "zipUrl": "https://github.com/${{ github.repository }}/releases/download/${{ steps.get_version.outputs.version }}/ksu_soft_reroot_fix_${{ steps.get_version.outputs.version }}.zip",
+            "changelog": "https://raw.githubusercontent.com/huime180/ksu_soft_reroot_fix/main/CHANGELOG.md"
+          }
+          EOF
+
+      - name: Commit updated update.json
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add update.json
+          git commit -m "Auto-update update.json for version ${{ steps.get_version.outputs.version }}" || echo "No changes to commit"
+          git push
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.get_version.outputs.version }}
+          name: Release ${{ steps.get_version.outputs.version }}
+          body_path: CHANGELOG.md
+          files: dist/ksu_soft_reroot_fix_${{ steps.get_version.outputs.version }}.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ksu_soft_reroot_fix_${{ steps.get_version.outputs.version }}.zip
+          path: dist/module.zip
