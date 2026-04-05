@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>ksu_soft_reboot_fix 配置</title>
+    <title>soft_reboot_fix 配置</title>
     <style>
         body { 
             font-family: Arial, sans-serif; 
@@ -104,12 +104,12 @@
         
         <button class="btn-blue" onclick="reloadConfig()">🔄 读取配置</button>
          <div id="status">配置文件位置/data/adb/modules/
-ksu_soft_reroot_fix/config.ini</div>
+soft_reboot_fix/config.ini</div>
 </div>
     </div>
 <script src="config_loader.js"></script>
 <script>
-const CONF_PATH = "/data/adb/modules/ksu_soft_reroot_fix/config.ini";
+const CONF_PATH = "/data/adb/modules/soft_reboot_fix/config.ini";
 
 function setStatus(msg, cls = "") {
     const el = document.getElementById("status");
@@ -152,7 +152,7 @@ async function reloadConfig() {
 CONF64=$(base64 -w 0 ${CONF_PATH})
 enablePid=$(grep '^ENABLE_PID=' ${CONF_PATH} | cut -d= -f2)
 daemonList=$(grep '^DAEMON_LIST=' ${CONF_PATH} | cut -d= -f2 | tr -d '"')
-cat > /data/adb/modules/ksu_soft_reroot_fix/webroot/config_loader.js <<EOF
+cat > /data/adb/modules/soft_reboot_fix/webroot/config_loader.js <<EOF
 document.getElementById('configRaw').value = atob("$CONF64");
 document.getElementById('enablePid').value = "$enablePid";
 document.getElementById('daemonList').value = "$daemonList";
