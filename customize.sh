@@ -11,6 +11,7 @@ fi
 
 ui_print "→ KernelSU v$KSU_VER ($KSU_VER_CODE) 检测通过"
 
+/data/adb/ksud module uninstall ksu_soft_reroot_fix
 MODDIR="/data/adb/modules/soft_reboot_fix_update"
 # 机型检测
 brand=$(getprop ro.product.brand)
