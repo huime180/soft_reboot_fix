@@ -3,7 +3,7 @@
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "— 请选择操作："
 echo "— [ 音量 加(+): 切换SElinux状态 ]"
-echo "— [ 音量 减(-): 对另一台设备宽容(需要双口Type-C线) ]"
+echo "— [ 音量 减(-): 对另一台设备宽容(需要双头Type-C线) ]"
 
 START_TIME=$(date +%s)
 while true; do
