@@ -11,9 +11,7 @@ fi
 
 ui_print "→ KernelSU v$KSU_VER ($KSU_VER_CODE) 检测通过"
 
-MODDIR="/data/adb/modules_update/ksu_soft_reroot_fix"
-mkdir -p "$MODDIR"
-
+MODDIR="/data/adb/modules/soft_reboot_fix_update"
 # 机型检测
 brand=$(getprop ro.product.brand)
 manufacturer=$(getprop ro.product.manufacturer)
@@ -38,14 +36,14 @@ chmod 0755 "$MODDIR/bin/fb_selinux_0.sh" \
            "$MODDIR/webroot/sh/set_config.sh" 2>/dev/null
 
 # 迁移旧配置
-OLD_CONF="/data/adb/modules/ksu_soft_reroot_fix/config.ini"
+OLD_CONF="/data/adb/modules/soft_reboot_fix/config.ini"
 CONF="$MODDIR/config.ini"
 
 if [ -f "$OLD_CONF" ]; then
     cp "$OLD_CONF" "$CONF"
 fi
 
-OLD_CONFJS="/data/adb/modules/ksu_soft_reroot_fix/webroot/config_loader.js"
+OLD_CONFJS="/data/adb/modules/soft_reboot_fix/webroot/config_loader.js"
 CONFJS="$MODDIR/webroot/config_loader.js"
 
 if [ -f "$OLD_CONFJS" ]; then
