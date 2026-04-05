@@ -1,5 +1,5 @@
 模块功能：  
-   为Ksu越狱模式隐藏环境，软重启前杀死守护进程，运行切换SElinux状态或对另一台设备宽容(需要双口Type-C线)  
+   为Ksu越狱模式隐藏环境，软重启前杀死守护进程，运行切换SElinux状态或对另一台设备宽容(需要双头Type-C线)  
    
 对另一台设备宽容:仅适用arm64  
    考虑到不能使用模块的情况，提供不需要root的方案，需要下载MT管理器的target28版本，解压后执行脚本即可对另一台设备宽容[noroot_SElinux_0(MT2-target28）](https://github.com/huime180/ksu_soft_reroot_fix/releases/download/v1.0.1/noroot_SElinux_0.MT2-target28.zip)  
