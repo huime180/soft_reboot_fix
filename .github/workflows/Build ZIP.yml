@@ -71,7 +71,7 @@ jobs:
         with:
           tag_name: ${{ steps.get_version.outputs.version }}
           name: Release ${{ steps.get_version.outputs.version }}
-          body_path: CHANGELOG.md
+          body_path: NEW_CHANGELOG.md
           files: dist/soft_reboot_fix-${{ steps.get_version.outputs.version }}.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
