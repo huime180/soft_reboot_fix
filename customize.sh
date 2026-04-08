@@ -20,9 +20,9 @@ name=$(getprop ro.product.name)
 model=$(getprop ro.product.model)
 echo "当前机型：$brand $manufacturer $name $model"
 if echo "$brand $manufacturer $name $model" | grep -qi "oneplus"; then
-    ui_print "检测到机型为OnePlus，将创建 post_fs_data.sh 自动关闭 oplus_secure_guard_new 内核模块"
+    ui_print "检测到机型为OnePlus，将创建 post-fs-data.sh 自动关闭 oplus_secure_guard_new 内核模块"
 
-    cat > "$MODDIR/post_fs_data.sh" <<EOF
+    cat > "$MODDIR/post-fs-data.sh" <<EOF
 #!/system/bin/sh
 rmmod oplus_secure_guard_new
 EOF
