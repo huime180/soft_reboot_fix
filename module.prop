@@ -1,7 +1,7 @@
 id=soft_reboot_fix
 name=软重启修复
 version=v1.0.3
-versionCode=10035
+versionCode=10036
 author=huime
 updateJson=https://raw.githubusercontent.com/huime180/soft_reboot_fix/master/update.json
 description=隐藏环境，软重启前杀死守护进程，运行切换SElinux状态或对另一台设备宽容
