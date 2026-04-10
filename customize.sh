@@ -28,6 +28,12 @@ rmmod oplus_secure_guard_new
 EOF
 fi
 
+if pm list packages | grep -q "com.tencent.tmgp.sgame"; then
+    echo "检测到已安装王者，自动执行防闪退"
+    APP_DIR=$(pm path com.tencent.tmgp.sgame 2>/dev/null | head -1 | cut -d: -f2 | sed 's/\/base\.apk$//')
+    chmod 000 "$APP_DIR/lib/arm64/libQAPECSharp.qti.so"
+fi
+
 # 设置执行权限
 ui_print "配置执行权限"
 chmod 0755 "$MODDIR/bin/fastboot" 2>/dev/null
