@@ -39,6 +39,7 @@ jobs:
             -x "update.json" \
             -x "README.md" \
             -x "CHANGELOG.md" \
+            -x "NEW_CHANGELOG.md" \
             -x ".github/*" \
             -x ".git/*" \
             -x "dist/*"
