@@ -3,6 +3,7 @@
 Release v1.0.3  
 1.更改模块ID  
 2.加入王者防闪退  
+3.执行加入清理风险文件  
 Release v1.0.2  
 1.添加网页管理  
 2.添加过春秋的Found property检测脚本  
