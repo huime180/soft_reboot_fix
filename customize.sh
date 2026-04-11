@@ -28,6 +28,10 @@ rmmod oplus_secure_guard_new
 EOF
 fi
 
+#冻结系统更新
+echo "自动冻结系统更新，注意：非root状态也不会恢复"
+pm hide com.oplus.ota com.android.updater 2>/dev/null
+
 if pm list packages | grep -q "com.tencent.tmgp.sgame"; then
     echo "检测到已安装王者，自动执行防闪退"
     APP_DIR=$(pm path com.tencent.tmgp.sgame 2>/dev/null | head -1 | cut -d: -f2 | sed 's/\/base\.apk$//')
