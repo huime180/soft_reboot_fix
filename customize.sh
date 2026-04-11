@@ -41,7 +41,7 @@ fi
 
 # 设置执行权限
 ui_print "配置执行权限"
-chmod 0755 "$MODDIR/bin/fastboot" 2>/dev/null
+chmod 755 "$MODDIR/bin/fastboot"
 
 # 迁移旧配置
 OLD_CONF="/data/adb/modules/soft_reboot_fix/config.ini"
