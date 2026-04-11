@@ -29,7 +29,7 @@ EOF
 fi
 
 #冻结系统更新
-echo "自动冻结系统更新，注意：非root状态也不会恢复"
+echo "已自动隐藏冻结系统更新，注意：非root状态时也不会恢复，需要在爱玩机、scene、及其它冻结软件中恢复"
 pm hide com.oplus.ota com.android.updater 2>/dev/null
 
 if pm list packages | grep -q "com.tencent.tmgp.sgame"; then
