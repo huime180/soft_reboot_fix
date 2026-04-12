@@ -1,7 +1,10 @@
 软重启修复：  
 加Q群反馈：[156555836](https://qun.qq.com/universal-share/share?ac=1&authKey=4AS7%2BFv2Lb%2BsbA8zflzn9bMhujvJnhLSUhyTUR6kxjv8SKKVzKI0%2F0pTdGrQIkIx&busi_data=eyJncm91cENvZGUiOiIxNTY1NTU4MzYiLCJ0b2tlbiI6ImNEQ2ZtWG1BeUtiV3U2OVBLSW5SV0VsYWdHeWE3ekJSYnhWZjRWRllQV3I0QTc3bGNiaDY0SDcrOGEwK1l0b1MiLCJ1aW4iOiIxODA1NDc2MDk5In0%3D&data=08MmLk6svikzFMjCb1HZY9cCiSiIV9U9BURWAM6-6EK3pD3uAoB5k_Dx1iyxY94scXE32zYE5IwoCa4iXm1P6g&svctype=4&tempid=h5_group_info)有群友帮解决问题
 Release v1.0.4  
-1.自动隐藏冻结系统更新  
+1.安装时自动隐藏冻结系统更新，注意：非root状态下也不会恢复，需要在爱玩机、scene、及其冻结软件中恢复  
+恢复命令：  
+pm unhide com.oplus.ota  
+pm unhide com.android.updater  
 Release v1.0.3  
 1.更改模块ID  
 2.加入王者防闪退  
