@@ -19,6 +19,13 @@ restart_adbd() {
 	fi
 }
 
+stop_adbd() {
+	stop adbd >/dev/null 2>&1
+	if [ "$(getprop init.svc.adbd)" != "running" ]; then
+		setprop ctl.stop adbd >/dev/null 2>&1
+	fi
+}
+
 adb_on() {
 	put_global adb_enabled 1
 	put_global adb_wifi_enabled 1
@@ -32,7 +39,7 @@ adb_off() {
 	put_global adb_wifi_enabled 0
 	set_system_prop service.adb.tcp.port -1
 	set_system_prop persist.sys.usb.config none
-	restart_adbd
+	stop_adbd
 }
 
 do_switch() {
