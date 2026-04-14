@@ -9,6 +9,7 @@ if [ "$MODDIR" = "$0" ] || [ ! -f "$MODDIR/module.prop" ]; then
 fi
 MODULE_PROP="$MODDIR/module.prop"
 CONF_PATH="$MODDIR/config.ini"
+daemonList=$(grep '^DAEMON_LIST=' ${CONF_PATH} | cut -d= -f2 | tr -d '"')
 
 query_usb_adb() { settings get global adb_enabled 2>/dev/null; }
 query_wifi_adb() { settings get global adb_wifi_enabled 2>/dev/null; }
@@ -29,7 +30,6 @@ update_description() {
 	WIFI="$(status_label "$(query_wifi_adb)")"
 	PORT="$(query_tcp_port)"
 	ADBD="$(query_adbd)"
-	daemonList=$(grep '^DAEMON_LIST=' ${CONF_PATH} | cut -d= -f2 | tr -d '"')
 
 	[ "$PORT" = "5555" ] && WIFI_REAL="ON" || WIFI_REAL="$WIFI"
 
