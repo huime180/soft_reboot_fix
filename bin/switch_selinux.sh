@@ -11,4 +11,3 @@ case "$(getenforce)" in
         echo "未知状态"
         ;;
 esac
-sleep 2
