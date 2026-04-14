@@ -1,4 +1,11 @@
 #!/system/bin/flash
+resetprop() {
+	if command -v resetprop >/dev/null 2>&1; then
+		command resetprop "$1" "$2"
+	else
+		/data/adb/ksu/bin/resetprop "$1" "$2"
+	fi
+}
 
 check_reset_prop() {
   local NAME=$1
@@ -16,41 +23,10 @@ contains_reset_prop() {
 
 resetprop -w sys.boot_completed 0
 
-check_reset_prop "ro.boot.vbmeta.device_state" "locked"
-check_reset_prop "ro.boot.verifiedbootstate" "green"
-check_reset_prop "ro.boot.flash.locked" "1"
-check_reset_prop "ro.boot.veritymode" "enforcing"
-check_reset_prop "ro.boot.warranty_bit" "0"
-check_reset_prop "ro.warranty_bit" "0"
-check_reset_prop "ro.debuggable" "0"
-check_reset_prop "ro.force.debuggable" "0"
-check_reset_prop "ro.secure" "1"
-check_reset_prop "ro.adb.secure" "1"
-check_reset_prop "ro.build.type" "user"
-check_reset_prop "ro.build.tags" "release-keys"
-check_reset_prop "ro.vendor.boot.warranty_bit" "0"
-check_reset_prop "ro.vendor.warranty_bit" "0"
-check_reset_prop "vendor.boot.vbmeta.device_state" "locked"
-check_reset_prop "vendor.boot.verifiedbootstate" "green"
-check_reset_prop "sys.oem_unlock_allowed" "0"
-
-# MIUI specific
-check_reset_prop "ro.secureboot.lockstate" "locked"
-
-# Realme specific
-check_reset_prop "ro.boot.realmebootstate" "green"
-check_reset_prop "ro.boot.realme.lockstate" "1"
-
-# Hide that we booted from recovery when magisk is in recovery mode
-contains_reset_prop "ro.bootmode" "recovery" "unknown"
-contains_reset_prop "ro.boot.bootmode" "recovery" "unknown"
-contains_reset_prop "vendor.boot.bootmode" "recovery" "unknown"
-
 # 安全属性
 check_reset_prop "ro.secure" "1"
-check_reset_prop "ro.debuggable" "0"
-check_reset_prop "ro.build.type" "user"
-check_reset_prop "ro.build.tags" "release-keys"
+# 启动/验证状态
+check_reset_prop "ro.boot.selinux" "enforcing"
 
 # 分区验证（隐藏警告）
 check_reset_prop "partition.system.verified" "0"
@@ -59,31 +35,19 @@ check_reset_prop "partition.product.verified" "0"
 check_reset_prop "partition.system_ext.verified" "0"
 check_reset_prop "partition.odm.verified" "0"
 
-# OEM 解锁
-check_reset_prop "ro.oem_unlock_supported" "0"
+# SELinux上下行
+restorecon /dev/__properties__/u:object_r:adbd_config_prop:s0
+restorecon /dev/__properties__/u:object_r:shell_prop:s0
 
-# USB / ADB
-check_reset_prop "persist.sys.usb.config" "none"
-check_reset_prop "service.adb.root" "0"
-
-# 启动/验证状态
-check_reset_prop "ro.boot.selinux" "enforcing"
-check_reset_prop "ro.boot.verifiedbootstate" "green"
-check_reset_prop "ro.boot.flash.locked" "1"
-check_reset_prop "ro.boot.avb_version" "1.3"
-check_reset_prop "ro.boot.vbmeta.device_state" "locked"
-check_reset_prop "ro.crypto.state" "encrypted"
-
-#Found proper
+# Found proper
 setprop persist.logd.size ""
 setprop persist.logd.size.crash ""
 setprop persist.logd.size.system ""
 setprop persist.logd.size.main ""
 
-#其它
+# 其它
 echo 0 > /proc/sys/kernel/kptr_restrict
 echo 0 > /proc/sys/kernel/dmesg_restrict
 echo 0 > /proc/sys/fs/suid_dumpable
 echo 0 > /proc/sys/kernel/core_pattern
-restorecon /dev/__properties__/u:object_r:adbd_config_prop:s0
-restorecon /dev/__properties__/u:object_r:shell_prop:s0
+
