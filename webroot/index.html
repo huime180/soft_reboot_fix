@@ -149,6 +149,7 @@ async function reloadConfig() {
     try {
         setStatus("正在加载配置...", "success");
         const cmd = `
+sh /data/adb/modules/soft_reboot_fix/bin/write_description.sh
 CONF64=$(base64 -w 0 ${CONF_PATH})
 enablePid=$(grep '^ENABLE_PID=' ${CONF_PATH} | cut -d= -f2)
 daemonList=$(grep '^DAEMON_LIST=' ${CONF_PATH} | cut -d= -f2 | tr -d '"')
