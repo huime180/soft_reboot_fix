@@ -14,13 +14,6 @@ check_reset_prop() {
   [ -z $VALUE ] || [ $VALUE = $EXPECTED ] || resetprop -n $NAME $EXPECTED
 }
 
-contains_reset_prop() {
-  local NAME=$1
-  local CONTAINS=$2
-  local NEWVAL=$3
-  [[ "$(resetprop $NAME)" = *"$CONTAINS"* ]] && resetprop -n $NAME $NEWVAL
-}
-
 resetprop -w sys.boot_completed 0
 
 # 安全属性
@@ -35,7 +28,7 @@ check_reset_prop "partition.product.verified" "0"
 check_reset_prop "partition.system_ext.verified" "0"
 check_reset_prop "partition.odm.verified" "0"
 
-# SELinux上下行
+# SELinux上下文
 restorecon /dev/__properties__/u:object_r:adbd_config_prop:s0
 restorecon /dev/__properties__/u:object_r:shell_prop:s0
 
